@@ -13,7 +13,7 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onDataParsed }) => {
 
   const processFile = async (file: File) => {
     if (!file.name.endsWith('.docx')) {
-      setError('Please upload a valid .docx file.');
+      setError('Vui lòng tải lên file .docx hợp lệ.');
       return;
     }
 
@@ -22,19 +22,19 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onDataParsed }) => {
 
     try {
       const result = await parseDocx(file);
-      
+
       if (result.questions.length === 0) {
         setError("Không tìm thấy câu hỏi nào. Vui lòng đảm bảo định dạng đúng (Câu 1: ... A. ...).");
         setIsProcessing(false);
         return;
       }
-      
+
       // Pass data AND debug info up
       onDataParsed(result.questions, file.name, result.debugData);
 
     } catch (err) {
       console.error(err);
-      setError("Failed to parse the file. Ensure it is a valid Word document.");
+      setError("Không thể đọc file. Hãy chắc chắn đây là file Word hợp lệ.");
     } finally {
       setIsProcessing(false);
     }
@@ -66,7 +66,7 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onDataParsed }) => {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-6">
-      <div 
+      <div
         className={`border-4 border-dashed rounded-xl p-10 text-center transition-colors duration-200 ease-in-out cursor-pointer relative
           ${isDragging ? 'border-primary bg-blue-50' : 'border-gray-300 hover:border-primary/50'}
         `}
@@ -75,26 +75,26 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onDataParsed }) => {
         onDragLeave={onDragLeave}
         onClick={() => document.getElementById('fileInput')?.click()}
       >
-        <input 
-          type="file" 
-          id="fileInput" 
-          className="hidden" 
-          accept=".docx" 
-          onChange={onFileChange} 
+        <input
+          type="file"
+          id="fileInput"
+          className="hidden"
+          accept=".docx"
+          onChange={onFileChange}
         />
-        
+
         <div className="flex flex-col items-center justify-center space-y-4">
           <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          
+
           <h3 className="text-xl font-semibold text-gray-700">
             {isProcessing ? 'Đang xử lý...' : 'Tải lên file .docx của bạn'}
           </h3>
-          
+
           <p className="text-sm text-gray-500 max-w-sm">
-            Kéo thả hoặc nhấn để chọn file. 
-            <br/>
+            Kéo thả hoặc nhấn để chọn file.
+            <br />
             <span className="font-medium text-orange-600">Lưu ý: Đáp án đúng phải được bôi đỏ hoặc gạch chân.</span>
           </p>
 

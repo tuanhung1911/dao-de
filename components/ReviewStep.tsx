@@ -11,7 +11,7 @@ interface ReviewStepProps {
 export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, onConfirm, onCancel }) => {
   const [localQuestions, setLocalQuestions] = useState<Question[]>(JSON.parse(JSON.stringify(questions)));
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  
+
   // Debug toggle
   const [showDebug, setShowDebug] = useState(false);
 
@@ -38,7 +38,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, on
   const handleConfirm = () => {
     const stillMissing = localQuestions.filter(q => !q.hasDetectedAnswer).length;
     if (stillMissing > 0) {
-      setErrorMsg(`Please select a correct answer for the ${stillMissing} highlighted questions.`);
+      setErrorMsg(`Vui lòng chọn đáp án đúng cho ${stillMissing} câu hỏi được đánh dấu.`);
       const firstError = document.querySelector('.border-red-500');
       firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -48,34 +48,34 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, on
 
   return (
     <div className="w-full max-w-6xl mx-auto p-4 pb-24 flex flex-col md:flex-row gap-6">
-      
+
       {/* LEFT COLUMN: Questions */}
       <div className="flex-grow">
         <div className="bg-white rounded-lg shadow-md p-6 mb-6 sticky top-4 z-10 border-l-4 border-primary">
           <div className="flex justify-between items-center flex-wrap gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">Review Questions</h2>
+              <h2 className="text-2xl font-bold text-gray-800">Xem lại câu hỏi</h2>
               <p className="text-gray-600">
-                Found <span className="font-semibold text-primary">{total}</span> questions. 
+                Tìm thấy <span className="font-semibold text-primary">{total}</span> câu.
                 {missingAnswers > 0 ? (
-                  <span className="text-red-600 font-bold ml-1"> {missingAnswers} missing answers.</span>
+                  <span className="text-red-600 font-bold ml-1"> {missingAnswers} câu thiếu đáp án.</span>
                 ) : (
-                  <span className="text-green-600 font-bold ml-1"> All answers detected!</span>
+                  <span className="text-green-600 font-bold ml-1"> Đã nhận diện đủ đáp án!</span>
                 )}
               </p>
             </div>
             <div className="flex space-x-3">
-              <button 
+              <button
                 onClick={onCancel}
                 className="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50 transition"
               >
-                Cancel
+                Hủy
               </button>
-              <button 
+              <button
                 onClick={handleConfirm}
                 className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow transition"
               >
-                Confirm & Proceed
+                Xác nhận & Tiếp tục
               </button>
             </div>
           </div>
@@ -88,11 +88,10 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, on
 
         <div className="space-y-6">
           {localQuestions.map((q, idx) => (
-            <div 
-              key={q.id} 
-              className={`bg-white rounded-lg shadow p-6 border-2 transition-all ${
-                !q.hasDetectedAnswer ? 'border-red-500 bg-red-50/10' : 'border-transparent hover:border-gray-200'
-              }`}
+            <div
+              key={q.id}
+              className={`bg-white rounded-lg shadow p-6 border-2 transition-all ${!q.hasDetectedAnswer ? 'border-red-500 bg-red-50/10' : 'border-transparent hover:border-gray-200'
+                }`}
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="bg-slate-200 text-slate-700 font-bold rounded px-2 py-1 text-sm h-fit shrink-0">
@@ -103,17 +102,17 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, on
 
               {!q.hasDetectedAnswer && (
                 <p className="text-xs text-red-600 font-bold uppercase tracking-wide mb-2">
-                  ⚠ No correct answer detected. Please select one:
+                  ⚠ Chưa tìm thấy đáp án đúng. Vui lòng chọn một đáp án:
                 </p>
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-2">
                 {q.options.map((opt) => (
-                  <label 
-                    key={opt.id} 
+                  <label
+                    key={opt.id}
                     className={`flex items-center p-3 rounded-md border cursor-pointer transition-all
-                      ${opt.isCorrect 
-                        ? 'bg-green-50 border-green-500 ring-1 ring-green-500' 
+                      ${opt.isCorrect
+                        ? 'bg-green-50 border-green-500 ring-1 ring-green-500'
                         : 'bg-white border-gray-200 hover:border-gray-400'
                       }
                     `}
@@ -150,7 +149,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, on
               {debugData?.detectedColors && debugData.detectedColors.length > 0 ? (
                 debugData.detectedColors.map(c => (
                   <span key={c} className="px-2 py-1 bg-gray-800 border border-gray-700 rounded flex items-center">
-                    <span className="w-2 h-2 rounded-full mr-2" style={{ backgroundColor: c.startsWith('#') ? c : `#${c}`}}></span>
+                    <span className="w-2 h-2 rounded-full mr-2" style={{ backgroundColor: c.startsWith('#') ? c : `#${c}` }}></span>
                     {c}
                   </span>
                 ))
@@ -163,34 +162,34 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ questions, debugData, on
           <div className="mb-6">
             <h4 className="text-xs font-bold uppercase text-blue-500 mb-2">Parser Logs</h4>
             <div className="bg-black rounded p-2 text-xs font-mono h-32 overflow-y-auto border border-gray-800">
-               {debugData?.logs.map((log, i) => <div key={i} className="mb-1">{log}</div>)}
+              {debugData?.logs.map((log, i) => <div key={i} className="mb-1">{log}</div>)}
             </div>
           </div>
 
           <div className="mb-6">
-             <h4 className="text-xs font-bold uppercase text-pink-500 mb-2">Raw Word XML (Internal)</h4>
-             <p className="text-xs text-gray-500 mb-2">Copy this if you need to debug formatting tags.</p>
-             <textarea 
-                readOnly
-                className="w-full h-48 bg-black text-pink-400 text-xs font-mono p-2 rounded border border-gray-800 focus:outline-none"
-                value={debugData?.documentXml || "No XML Data"}
-             />
+            <h4 className="text-xs font-bold uppercase text-pink-500 mb-2">Raw Word XML (Internal)</h4>
+            <p className="text-xs text-gray-500 mb-2">Copy this if you need to debug formatting tags.</p>
+            <textarea
+              readOnly
+              className="w-full h-48 bg-black text-pink-400 text-xs font-mono p-2 rounded border border-gray-800 focus:outline-none"
+              value={debugData?.documentXml || "No XML Data"}
+            />
           </div>
 
           <div>
-             <h4 className="text-xs font-bold uppercase text-green-500 mb-2">Generated HTML (Mammoth)</h4>
-             <textarea 
-                readOnly
-                className="w-full h-48 bg-black text-green-400 text-xs font-mono p-2 rounded border border-gray-800 focus:outline-none"
-                value={debugData?.rawHtml || "No HTML Data"}
-             />
+            <h4 className="text-xs font-bold uppercase text-green-500 mb-2">Generated HTML (Mammoth)</h4>
+            <textarea
+              readOnly
+              className="w-full h-48 bg-black text-green-400 text-xs font-mono p-2 rounded border border-gray-800 focus:outline-none"
+              value={debugData?.rawHtml || "No HTML Data"}
+            />
           </div>
         </div>
       </div>
 
       {/* Floating Toggle Button */}
       {!showDebug && (
-        <button 
+        <button
           onClick={() => setShowDebug(true)}
           className="fixed bottom-6 right-6 bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg z-40 flex items-center gap-2 text-sm font-medium"
         >

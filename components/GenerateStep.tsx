@@ -21,7 +21,7 @@ export const GenerateStep: React.FC<GenerateStepProps> = ({ questions, onReset }
         setIsDone(true);
       } catch (e) {
         console.error(e);
-        alert("An error occurred during generation.");
+        alert("Có lỗi xảy ra trong quá trình tạo đề.");
       } finally {
         setIsGenerating(false);
       }
@@ -33,18 +33,18 @@ export const GenerateStep: React.FC<GenerateStepProps> = ({ questions, onReset }
       <div className="flex flex-col items-center justify-center p-10 bg-white rounded-lg shadow-lg max-w-lg mx-auto text-center animate-fade-in">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
           <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Success!</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-2">Thành công!</h2>
         <p className="text-gray-600 mb-8">
-          Your zip file containing {versionCount} unique shuffled tests and the answer key has been generated and downloaded.
+          File nén chứa {versionCount} mã đề đã được đảo và đáp án đã được tải xuống.
         </p>
-        <button 
+        <button
           onClick={onReset}
           className="text-primary hover:text-blue-800 font-medium underline"
         >
-          Start Over with New File
+          Tạo đề mới
         </button>
       </div>
     );
@@ -53,13 +53,13 @@ export const GenerateStep: React.FC<GenerateStepProps> = ({ questions, onReset }
   return (
     <div className="w-full max-w-lg mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
       <div className="bg-primary p-6 text-white text-center">
-        <h2 className="text-2xl font-bold">Configure Generation</h2>
-        <p className="opacity-90 text-sm mt-1">Ready to shuffle {questions.length} questions</p>
+        <h2 className="text-2xl font-bold">Cấu hình tạo đề</h2>
+        <p className="opacity-90 text-sm mt-1">Sẵn sàng đảo {questions.length} câu hỏi</p>
       </div>
-      
+
       <div className="p-8">
         <label className="block text-sm font-bold text-gray-700 mb-2">
-          Number of Versions to Generate
+          Số lượng mã đề muốn tạo
         </label>
         <div className="flex items-center gap-4 mb-8">
           <input
@@ -84,8 +84,8 @@ export const GenerateStep: React.FC<GenerateStepProps> = ({ questions, onReset }
           onClick={handleGenerate}
           disabled={isGenerating}
           className={`w-full py-4 px-6 rounded-lg text-white font-bold text-lg shadow-md transition-all transform
-            ${isGenerating 
-              ? 'bg-gray-400 cursor-not-allowed' 
+            ${isGenerating
+              ? 'bg-gray-400 cursor-not-allowed'
               : 'bg-indigo-600 hover:bg-indigo-700 hover:-translate-y-1 active:scale-95'
             }
           `}
@@ -96,17 +96,17 @@ export const GenerateStep: React.FC<GenerateStepProps> = ({ questions, onReset }
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Generating...
+              Đang tạo...
             </span>
           ) : (
-            `Generate ${versionCount} Versions`
+            `Tạo ${versionCount} Mã Đề`
           )}
         </button>
-        
+
         <div className="mt-6 text-center">
-             <button onClick={onReset} className="text-sm text-gray-500 hover:text-gray-700 underline">
-                 Back to start
-             </button>
+          <button onClick={onReset} className="text-sm text-gray-500 hover:text-gray-700 underline">
+            Quay lại
+          </button>
         </div>
       </div>
     </div>
